@@ -6,6 +6,8 @@
 npm install -f react-router-dom
 npm install -f react-type-animation
 npm i -f imagekitio-react
+npm i -f @google/generative-ai
+npm i -f react-markdown
 
 Clerk
 npm install -f @clerk/clerk-react
@@ -17,6 +19,10 @@ npm i nodemon
 npm i express
 npm i imagekit
 npm i cors
+npm i mongoose
+
+Clerk
+npm install @clerk/clerk-sdk-node
 ```
 
 ```

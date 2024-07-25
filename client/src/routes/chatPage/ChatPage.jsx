@@ -22,6 +22,12 @@ const ChatPage = () => {
           <div className="message user">Test message</div>
           <div className="message">Test message</div>
           <div className="message user">Test message</div>
+          <div className="message">Test message</div>
+          <div className="message user">Test message</div>
+          <div className="message">Test message</div>
+          <div className="message user">Test message</div>
+          <div className="message">Test message</div>
+          <div className="message user">Test message</div>
           <NewPrompt />
         </div>
       </div>

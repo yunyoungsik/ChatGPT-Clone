@@ -4,7 +4,14 @@ import { TypeAnimation } from 'react-type-animation';
 import { useState } from 'react';
 
 const Homepage = () => {
-  const [typingStatus, setTypingStatus] = useState('human1')
+  const [typingStatus, setTypingStatus] = useState('human1');
+
+  const test = async () => {
+    await fetch('http://localhost:3000/api/test', {
+      credentials: 'include',
+    });
+  };
+
   return (
     <div className="homepage">
       <img src="/orbital.png" alt="orbital" className="orbital" />
@@ -16,6 +23,7 @@ const Homepage = () => {
           delectus, omnis maxime cumque minus exercitationem libero.
         </h3>
         <Link to="dashboard">Get Started</Link>
+        <button onClick={test}>TEST</button>
       </div>
       <div className="right">
         <div className="imgContainer">
@@ -25,24 +33,37 @@ const Homepage = () => {
           <img src="/bot.png" alt="bot" className="bot" />
 
           <div className="chat">
-            <img src={typingStatus === 'human1' ? '/human1.jpeg' : typingStatus === 'human2' ? '/human2.jpeg' : 'bot.png'} alt="bot" />
+            <img
+              src={
+                typingStatus === 'human1'
+                  ? '/human1.jpeg'
+                  : typingStatus === 'human2'
+                  ? '/human2.jpeg'
+                  : 'bot.png'
+              }
+              alt="bot"
+            />
             <TypeAnimation
               sequence={[
                 'Human: We produce food for Mice',
-                2000, () => {
-                  setTypingStatus('bot')
+                2000,
+                () => {
+                  setTypingStatus('bot');
                 },
                 'Bot: We produce food for Hamsters',
-                2000, () => {
-                  setTypingStatus('human2')
+                2000,
+                () => {
+                  setTypingStatus('human2');
                 },
                 'Human: We produce food for Guinea Pigs',
-                2000, () => {
-                  setTypingStatus('bot')
+                2000,
+                () => {
+                  setTypingStatus('bot');
                 },
                 'Bot: We produce food for Chinchillas',
-                2000, () => {
-                  setTypingStatus('human1')
+                2000,
+                () => {
+                  setTypingStatus('human1');
                 },
               ]}
               wrapper="span"
@@ -56,13 +77,13 @@ const Homepage = () => {
         </div>
       </div>
 
-      <div className='terms'>
+      <div className="terms">
         <img src="/logo.png" alt="logo" />
-        
-        <div className='links'>
-          <Link to='/'>Terms of Service</Link>
+
+        <div className="links">
+          <Link to="/">Terms of Service</Link>
           <span>|</span>
-          <Link to='/'>Privacy Policy</Link>
+          <Link to="/">Privacy Policy</Link>
         </div>
       </div>
     </div>
