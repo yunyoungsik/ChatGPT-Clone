@@ -23,7 +23,8 @@ npm i nodemon<br />
 npm i express<br />
 npm i imagekit<br />
 npm i cors<br />
-npm i mongoose
+npm i mongoose<br />
+npm i path url
 </details>
 
 ### Backend
