@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import Chat from './models/chat.js';
 import UserChats from './models/userChats.js';
-import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
+import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
 
 const port = process.env.PROT || 3000;
 const app = express();
@@ -38,14 +38,16 @@ app.get('/api/upload', (req, res) => {
   res.send(result);
 });
 
-app.get('/api/test', ClerkExpressRequireAuth(), (req, res) => {
-  const userId = req.auth.userId;
-  console.log(userId)
-  res.send('good')
-});
+// 테스트
+// app.get('/api/test', ClerkExpressRequireAuth(), (req, res) => {
+//   const userId = req.auth.userId;
+//   console.log(userId)
+//   res.send('good')
+// });
 
 app.post('/api/chats', ClerkExpressRequireAuth(), async (req, res) => {
-  const { text, userId } = req.body;
+  const userId = req.auth.userId;
+  const { text } = req.body;
 
   try {
     // 새 채팅 만들기
@@ -96,6 +98,64 @@ app.post('/api/chats', ClerkExpressRequireAuth(), async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send('Error creating chast');
+  }
+});
+
+app.get("/api/userchats", ClerkExpressRequireAuth(), async (req, res) => {
+  const userId = req.auth.userId;
+
+  try {
+    const userChats = await UserChats.find({ userId });
+
+    // userChats가 비어있는지 확인
+    if (!userChats.length || !userChats[0].chats) {
+      return res.status(404).send("No chats found for this user.");
+    }
+
+    res.status(200).send(userChats[0].chats);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error fetching userchats!");
+  }
+});
+
+app.get('/api/chats/:id', ClerkExpressRequireAuth(), async (req, res) => {
+  const userId = req.auth.userId;
+
+  try {
+    const chat = await Chat.findOne({ _id: req.params.id, userId });
+    res.status(200).send(chat);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error fetching chat');
+  }
+});
+
+app.put('/api/chats/:id', ClerkExpressRequireAuth(), async (req, res) => {
+  const userId = req.auth.userId;
+
+  const { question, answer, img } = req.body;
+
+  const newItems = [
+    ...(question ? [{ role: 'user', parts: [{ text: question }], ...(img && { img }) }] : []),
+    { role: 'model', parts: [{ text: answer }] },
+  ];
+
+  try {
+    const updatedChat = await Chat.updateOne(
+      { _id: req.params.id, userId },
+      {
+        $push: {
+          history: {
+            $each: newItems,
+          },
+        },
+      }
+    );
+    res.status(200).send(updatedChat);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Error adding conversation!');
   }
 });
 

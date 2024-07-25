@@ -1,30 +1,34 @@
 # ChatGPT Clone
 
+[참고영상](https://youtu.be/8iAQ1h30n5I?si=W96G-njTbYYjyBPx)
+
 ## 설치
-[Clinet]
-```
-npm install -f react-router-dom
-npm install -f react-type-animation
-npm i -f imagekitio-react
-npm i -f @google/generative-ai
-npm i -f react-markdown
 
-Clerk
+<details>
+<summary>Clinet</summary>
+npm install -f react-router-dom<br />
+npm install -f react-type-animation<br />  
+npm i -f imagekitio-react<br />
+npm i -f @google/generative-ai<br />
+npm i -f react-markdown<br />
+npm i -f @tanstack/react-query<br />
+<br />
+Clerk<br />
 npm install -f @clerk/clerk-react
-```
+</details>
 
-[Backend]
-```
-npm i nodemon
-npm i express
-npm i imagekit
-npm i cors
+<details>
+<summary>Backend</summary>
+npm i nodemon<br />
+npm i express<br />
+npm i imagekit<br />
+npm i cors<br />
 npm i mongoose
+</details>
 
-Clerk
-npm install @clerk/clerk-sdk-node
-```
+### Backend
 
+[package.json]
 ```
  "type": "module", <!-- 추가 -->
   "scripts": {
