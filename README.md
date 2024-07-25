@@ -1,5 +1,7 @@
 # ChatGPT Clone
 
+<img width="100%" src="https://github.com/yunyoungsik/ChatGPT-Clone/blob/main/client/public/thumnail.jpg?raw=true" />
+
 [참고영상](https://youtu.be/8iAQ1h30n5I?si=W96G-njTbYYjyBPx)
 
 ## 설치
