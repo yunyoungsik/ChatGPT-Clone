@@ -1,6 +1,8 @@
 import express from 'express';
 import ImageKit from 'imagekit';
 import cors from 'cors';
+import path from 'path';
+import url, { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import Chat from './models/chat.js';
 import UserChats from './models/userChats.js';
@@ -15,6 +17,9 @@ app.use(
     credentials: true,
   })
 );
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 app.use(express.json());
 
@@ -158,6 +163,12 @@ app.put('/api/chats/:id', ClerkExpressRequireAuth(), async (req, res) => {
     res.status(500).send('Error adding conversation!');
   }
 });
+
+app.use(express.static(path.join(__dirname, '../client/dist')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
+})
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
